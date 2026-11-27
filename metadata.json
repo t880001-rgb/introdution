@@ -1,0 +1,6 @@
+{
+  "name": "冬山鄉導覽誌",
+  "description": "結合 Google Maps 即時導航、景點推薦與學生田野踏查匯入的冬山鄉人文風景歷史產物農業美食導覽應用。",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
