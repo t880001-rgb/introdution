@@ -26,10 +26,25 @@ function CategoryGlyph({ category }: { category: GuideCategory }) {
   }
 }
 
+export function resolveAppAssetUrl(src?: string): string | undefined {
+  if (!src) return undefined;
+  if (
+    src.startsWith('/src/assets/') ||
+    src.startsWith('/pwa-') ||
+    src === '/icon.svg' ||
+    src === '/apple-touch-icon.png'
+  ) {
+    const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+    return `${base}${src}`;
+  }
+  return src;
+}
+
 export function SpotImage({ src, alt, category, className = '' }: SpotImageProps) {
   const [failed, setFailed] = useState(false);
+  const resolvedSrc = resolveAppAssetUrl(src);
 
-  if (!src || failed) {
+  if (!resolvedSrc || failed) {
     return (
       <div
         className={`flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-[#EFECE4] via-[#E7E3D7] to-[#DCE4DC] text-[#57544D] ${className}`}
@@ -46,7 +61,7 @@ export function SpotImage({ src, alt, category, className = '' }: SpotImageProps
 
   return (
     <img
-      src={src}
+      src={resolvedSrc}
       alt={alt}
       referrerPolicy="no-referrer"
       onError={() => setFailed(true)}

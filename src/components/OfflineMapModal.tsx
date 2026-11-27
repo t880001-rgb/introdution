@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { useOnlineStatus, usePWAInstall } from '../hooks/usePWA';
 import type { GuideSpot, LatLngPoint } from '../types/guide';
+import { resolveAppAssetUrl } from './SpotImage';
 import {
   buildOfflinePackPayload,
   generateOfflineHtmlHandbook,
@@ -81,14 +82,15 @@ export function OfflineMapModal({
         const cache = await window.caches.open(OFFLINE_CACHE_NAME);
 
         // Cache core spot JSON & SVG map snapshot into Cache Storage
+        const basePrefix = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
         await cache.put(
-          '/offline-spots-pack.json',
+          `${basePrefix}/offline-spots-pack.json`,
           new Response(jsonText, {
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
           })
         );
         await cache.put(
-          '/offline-dongshan-map.svg',
+          `${basePrefix}/offline-dongshan-map.svg`,
           new Response(svgText, {
             headers: { 'Content-Type': 'image/svg+xml; charset=utf-8' },
           })
@@ -99,11 +101,11 @@ export function OfflineMapModal({
         const imageUrls = Array.from(
           new Set(
             spots
-              .map((s) => s.imageUrl)
+              .map((s) => resolveAppAssetUrl(s.imageUrl))
               .filter(
                 (url): url is string =>
                   Boolean(url) &&
-                  (url!.startsWith('/src/assets/') || url!.startsWith('/'))
+                  (url!.includes('/src/assets/') || url!.startsWith('/'))
               )
           )
         );

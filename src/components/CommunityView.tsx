@@ -25,6 +25,7 @@ import {
   filterCommunityPosts,
   validateCommunityPostDraft,
 } from '../utils/community';
+import { resolveAppAssetUrl } from './SpotImage';
 
 interface CommunityViewProps {
   spots: GuideSpot[];
@@ -372,7 +373,7 @@ export function CommunityView({
               {photoUrl && (
                 <div className="aspect-[16/9] rounded-lg overflow-hidden bg-[#EFECE4] border border-[#E2DDD2]">
                   <img
-                    src={photoUrl}
+                    src={resolveAppAssetUrl(photoUrl)}
                     alt="待分享的走讀照片預覽"
                     className="w-full h-full object-cover"
                   />
@@ -533,7 +534,7 @@ export function CommunityView({
                     {post.photoUrl && (
                       <div className="aspect-[16/9] rounded-lg overflow-hidden bg-[#EFECE4] border border-[#E2DDD2]">
                         <img
-                          src={post.photoUrl}
+                          src={resolveAppAssetUrl(post.photoUrl)}
                           alt={`${post.authorName} 分享的 ${linkedSpot?.name ?? '冬山'} 走讀照片`}
                           referrerPolicy="no-referrer"
                           className="w-full h-full object-cover"

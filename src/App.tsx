@@ -16,7 +16,7 @@ import { LearningIslandView } from './components/LearningIslandView';
 import { OfflineMapModal } from './components/OfflineMapModal';
 import { RecommendationView } from './components/RecommendationView';
 import { SpotDetailPanel } from './components/SpotDetailPanel';
-import { SpotImage } from './components/SpotImage';
+import { SpotImage, resolveAppAssetUrl } from './components/SpotImage';
 import { StudentImportView } from './components/StudentImportView';
 import { SEED_COMMUNITY_POSTS } from './data/communitySeed';
 import { DONGSHAN_HERO_IMAGE, SEED_DONGSHAN_SPOTS } from './data/dongshanSeed';
@@ -525,7 +525,7 @@ export default function App() {
 
             <div className="lg:col-span-5 relative min-h-[175px] lg:min-h-[205px] bg-[#EFECE4]">
               <img
-                src={DONGSHAN_HERO_IMAGE}
+                src={resolveAppAssetUrl(DONGSHAN_HERO_IMAGE)}
                 alt="冬山河生態綠舟與蘭陽群山風景"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
